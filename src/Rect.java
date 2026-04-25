@@ -12,20 +12,19 @@ public class Rect
 	double vx;
 	double vy;
 	
-	int direction = DN;
+	int direction = LT;
 	
 	// Constant values that are used to index the
 	// Animation array to select the correct
 	// Animation for the direction the solder
 	// is moving.
-	static final int UP = 0;
-	static final int DN = 1;
-	static final int LT = 2;
-	static final int RT = 3;
-	static final int UL = 4;
-	static final int DL = 5;
-	static final int UR = 6;
-	static final int DR = 7;
+	static final int LT = 0;
+	static final int RT = 1;
+	static final int IDLE = 2;
+	static final int UL = 3;
+	static final int DL = 4;
+	static final int UR = 5;
+	static final int DR = 6;
 	
 	
 	boolean selected = false;

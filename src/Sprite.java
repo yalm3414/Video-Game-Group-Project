@@ -6,14 +6,16 @@ public class Sprite extends Rect
 		
 	boolean moving = false;
 	
+	public boolean grounded = true;
+	
 	
 	boolean physics = false;
 	
-	double g = 0.8;
+	double g = 2.6;
 	
 	
 	
-	Animation[] animation = new Animation[4];
+	Animation[] animation = new Animation[2];
 	
 	
 	public Sprite(String name, int x, int y, int w, int h, int direction, String[] pose)
@@ -25,7 +27,7 @@ public class Sprite extends Rect
 		
 		for(int i = 0; i < animation.length; i++)
 		{
-			animation[i] = new Animation(name + "_" + pose[i], 5, 10, "GIF");
+			animation[i] = new Animation(name + "_" + pose[i], 3, 10, "png");
 		}		
 		
 		
@@ -49,8 +51,11 @@ public class Sprite extends Rect
 	
 	public void jump()
 	{
-		vy = -20;
+		if(grounded == true) {
+			vy = -20;
+		}
 		
+		grounded = false;
 		moving = true;
 	}
 	
@@ -58,7 +63,7 @@ public class Sprite extends Rect
 	{
 		vy = -dy;
 		
-		direction = UP;
+	//	direction = UP;
 		
 		moving = true;
 	}
@@ -67,7 +72,7 @@ public class Sprite extends Rect
 	{
 		vy = dy;
 
-		direction = DN;
+	//	direction = DN;
 
 		moving = true;
 	}
@@ -95,7 +100,7 @@ public class Sprite extends Rect
 	{
 		y -= dy;
 		
-		direction = UP;
+	//	direction = UP;
 		
 		moving = true;
 	}
@@ -104,7 +109,7 @@ public class Sprite extends Rect
 	{
 		y += dy;
 
-		direction = DN;
+	//	direction = DN;
 
 		moving = true;
 	}

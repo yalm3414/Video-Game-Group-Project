@@ -1,6 +1,5 @@
 
 
-
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +7,9 @@ import java.awt.event.*;
 public class GameS26 extends GameBase
 {	
 	
-	Soldier s = new Soldier(800, 0, Soldier.LT);
+	Background bg = new Background("mariobg.jpg",1192,670);
+//	Soldier s = new Soldier(800, 0, Soldier.LT);
+	Mario s = new Mario(50, 500, Mario.LT);
 	
 	
 	int[] x = 
@@ -23,14 +24,11 @@ public class GameS26 extends GameBase
 	
 	Rect[] platform = 
 	{
-		new Rect(0, 860, 1200, 40),
-		new Rect(1250, 700, 1600, 40),
-		new Rect(100, 200, 200, 140),		
-		new Rect(1200, 200, 200, 140),		
-		new Rect(400, 325, 550, 50),		
+		new Rect(0, 600, 1200, 40),
+			
 	};
 	
-	int v = 6;
+	int v = 4;
 	
 	
 	
@@ -45,7 +43,7 @@ public class GameS26 extends GameBase
 		}
 	}
 	
-	
+	/*
 	String[] map = 
 	{
 		"...ABC................ABC",
@@ -63,7 +61,7 @@ public class GameS26 extends GameBase
 		"QQQQQQQQQQQQQQQQQQQQQQQQQ",
 		"RRRRRRRRRRRRRRRRRRRRRRRRR",
 	};
-	
+	*/
 	public void inGameLoop()
 	{
 		loadTiles();
@@ -72,10 +70,25 @@ public class GameS26 extends GameBase
 	    s.physics = true;
 			
 			// Move User Controlled Objects
-		if(pressing[UP])   s.jump();
-		if(pressing[DN])   s.goDN(v);
-		if(pressing[LT])   s.goLT(v);
-		if(pressing[RT])   s.goRT(v);
+	    
+	    
+		if(pressing[UP]) {
+			s.jump();
+		}
+		if(pressing[DN]) {
+			s.goDN(v);
+		}
+		if(pressing[LT]) {
+			s.goLT(v);
+			Camera.moveRight(v);
+		}
+		if(pressing[RT]) {
+			s.goRT(v);
+			Camera.moveLeft(v);
+		}else {
+			
+//		  	s.idle(); 
+		}
 
 		s.move();
 		
@@ -96,6 +109,8 @@ public class GameS26 extends GameBase
 				
 				s.vx = 0;
 				s.vy = 0;
+				
+				s.grounded = true;
 			}
 		}
 		
@@ -109,7 +124,9 @@ public class GameS26 extends GameBase
 	
 	public void paint(Graphics g)
 	{	
+		bg.draw(g);
 		s.draw(g);
+		
 		
 		for(int i = 0; i < platform.length; i++)
 		{
@@ -117,7 +134,7 @@ public class GameS26 extends GameBase
 		}
 		
 		Image image = null;
-		
+/*		
 		int w = 64;
 		int h = 64;
 		
@@ -142,7 +159,7 @@ public class GameS26 extends GameBase
 			}
 			
 		}
-		
+		*/
 	}
 	
 	
