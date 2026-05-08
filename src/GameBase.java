@@ -7,6 +7,9 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	Image     off_screen;
 	Graphics  off_screen_g;
 	
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	int screenWidth = screenSize.width;
+
 	
 	boolean[] pressing = new boolean[1024];
 	
@@ -87,9 +90,12 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	Thread t;
 	
 	
+	MusicPlayer musicPlayer = new MusicPlayer();
 	
 	public final void run()
 	{
+		
+		musicPlayer.playMusic("../Music/Background_Theme.wav");
 		while(true)
 		{
 			inGameLoop();

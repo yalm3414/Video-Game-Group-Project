@@ -6,11 +6,13 @@ import java.awt.event.*;
 
 public class GameS26 extends GameBase
 {	
+
+//	Background bg = new Background("mariobg.jpg",1192,670);
 	
-	Background bg = new Background("mariobg.jpg",1192,670);
-//	Soldier s = new Soldier(800, 0, Soldier.LT);
-	Mario s = new Mario(50, 500, Mario.LT);
+	ImageLayer bg = new ImageLayer("mariobg.jpg",1,1,1,1192,670);
 	
+
+	Mario mario = new Mario(50, 500, Mario.LT);
 	
 	int[] x = 
 	{
@@ -24,11 +26,11 @@ public class GameS26 extends GameBase
 	
 	Rect[] platform = 
 	{
-		new Rect(0, 600, 1200, 40),
+		new Rect(-100, 590, 120000, 40),
 			
 	};
 	
-	int v = 4;
+	
 	
 	
 	
@@ -37,6 +39,7 @@ public class GameS26 extends GameBase
 	
 	public void loadTiles()
 	{
+		
 		for(int i = 0; i < tile.length; i++)
 		{
 			tile[i] = Toolkit.getDefaultToolkit().getImage("winter" + (i+1) + ".png");
@@ -62,35 +65,41 @@ public class GameS26 extends GameBase
 		"RRRRRRRRRRRRRRRRRRRRRRRRR",
 	};
 	*/
+	
+	int v = 6;
+	
 	public void inGameLoop()
 	{
+		
 		loadTiles();
 		
 		
-	    s.physics = true;
+	    mario.physics = true;
 			
 			// Move User Controlled Objects
 	    
 	    
 		if(pressing[UP]) {
-			s.jump();
+			mario.jump();
 		}
 		if(pressing[DN]) {
-			s.goDN(v);
+			mario.goDN(v);
 		}
 		if(pressing[LT]) {
-			s.goLT(v);
-			Camera.moveRight(v);
+			mario.goLT(v);
+			if(mario.x <= Camera.x) mario.stayBounded();
+//			Camera.moveLeft(6);
 		}
 		if(pressing[RT]) {
-			s.goRT(v);
-			Camera.moveLeft(v);
+			mario.goRT(v);
+			if(mario.x > Camera.x + screenWidth/2) Camera.moveRight(6);
+			
 		}else {
 			
 //		  	s.idle(); 
 		}
 
-		s.move();
+		mario.move();
 		
 			
 
@@ -103,14 +112,14 @@ public class GameS26 extends GameBase
 		
 		for(int i = 0; i < platform.length; i++)
 		{
-			if(s.overlaps(platform[i]))
+			if(mario.overlaps(platform[i]))
 			{
-				platform[i].pushes(s);
+				platform[i].pushes(mario);
 				
-				s.vx = 0;
-				s.vy = 0;
+				mario.vx = 0;
+				mario.vy = 0;
 				
-				s.grounded = true;
+				mario.grounded = true;
 			}
 		}
 		
@@ -125,8 +134,10 @@ public class GameS26 extends GameBase
 	public void paint(Graphics g)
 	{	
 		bg.draw(g);
-		s.draw(g);
+		mario.draw(g);
 		
+		
+		g.fillRect((int)platform[0].x, (int)platform[0].y, platform[0].w, platform[0].h);
 		
 		for(int i = 0; i < platform.length; i++)
 		{

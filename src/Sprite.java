@@ -118,7 +118,7 @@ public class Sprite extends Rect
 	{
 		x -= dx;
 
-		direction = LT;
+		direction = RT;
 		
 		moving = true;
 	}
@@ -127,7 +127,17 @@ public class Sprite extends Rect
 	{
 		x += dx;
 		
-		direction = RT;
+		direction = LT;
+
+		moving = true;
+
+	}
+	
+	public void stayBounded()
+	{
+		x = Camera.x;
+		
+		direction = LT;
 
 		moving = true;
 
