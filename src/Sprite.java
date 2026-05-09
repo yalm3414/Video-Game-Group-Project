@@ -13,12 +13,12 @@ public class Sprite extends Rect
 	
 	double g = 2.6;
 	
+	animCycle = 2;
+	
+	Animation[] animation = new Animation[animCycle];
 	
 	
-	Animation[] animation = new Animation[2];
-	
-	
-	public Sprite(String name, int x, int y, int w, int h, int direction, String[] pose)
+	public Sprite(String name, int x, int y, int w, int h, int animCycle, int direction, String[] pose)
 	{
 		super(x, y, w, h);
 
