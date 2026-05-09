@@ -30,14 +30,16 @@ public class Animation
 		return image[0];
 	}
 	
-	
-	public Image nextImage()
+	//WalkFrames is how many frames are dedicated to walking
+	//In the image array the walking frames are from index 1 to walkFrames
+	//Anything after that is dedicated to other animation possibilities like jumping, dying, etc
+	public Image nextImage(int walkFrames)
 	{
 		delay--;
 		
 		if(delay == 0)
 		{
-			if( current == image.length-1)   current = 1;
+			if( current == walkFrames)   current = 1;
 			else                             current++;
 			
 			delay = duration;
@@ -51,5 +53,15 @@ public class Animation
 	{
 		return Toolkit.getDefaultToolkit().getImage(filename);
 	}
+
+
+	public Image getJump() {
+		return image[4];
+	}
+	public Image getDuck() {
+		return image[5];
+	}
+	
+
 
 }

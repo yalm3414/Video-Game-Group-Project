@@ -1,0 +1,7 @@
+-Added mario run,jump,duck animations
+-Added Goomba sprite
+-Changed GameS26 Class to MarioBrothers
+-Updated Sprite and Animation class to take in sprites of -any length-Added mario run,jump,duck animations
+-Added Goomba sprite
+-Changed GameS26 Class to MarioBrothers
+-Updated Sprite and Animation class to take in sprites of -any length

@@ -21,7 +21,7 @@ public class Rect
 	static final int LT = 0;
 	static final int RT = 1;
 	static final int IDLE = 2;
-	static final int UL = 3;
+	static final int FORWARD = 3;
 	static final int DL = 4;
 	static final int UR = 5;
 	static final int DR = 6;

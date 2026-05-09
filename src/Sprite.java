@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Toolkit;
 
 public class Sprite extends Rect
 {
@@ -6,28 +7,29 @@ public class Sprite extends Rect
 		
 	boolean moving = false;
 	
+	
+	
 	public boolean grounded = true;
 	
 	
 	boolean physics = false;
 	
-	double g = 2.6;
-	
-	animCycle = 2;
-	
-	Animation[] animation = new Animation[animCycle];
+	double g = 1.0;
 	
 	
-	public Sprite(String name, int x, int y, int w, int h, int animCycle, int direction, String[] pose)
+	Animation[] animation;
+	
+	//totalFrames is the total amount of frames a sprite will have including still frames, walking frames, jumping, dying, etc.
+	public Sprite(String name, int x, int y, int w, int h, int totalFrames, int direction, String[] pose)
 	{
 		super(x, y, w, h);
-
 		
 		this.name = name;
+		animation = new Animation[pose.length];
 		
 		for(int i = 0; i < animation.length; i++)
 		{
-			animation[i] = new Animation(name + "_" + pose[i], 3, 10, "png");
+			animation[i] = new Animation(name + "_" + pose[i], totalFrames, 10, "png");
 		}		
 		
 		
@@ -49,15 +51,6 @@ public class Sprite extends Rect
 		}
 	}
 	
-	public void jump()
-	{
-		if(grounded == true) {
-			vy = -20;
-		}
-		
-		grounded = false;
-		moving = true;
-	}
 	
 	public void goUP(int dy)
 	{
@@ -144,19 +137,7 @@ public class Sprite extends Rect
 	}
 		
 	
-	public void draw(Graphics g)
-	{
-		if(moving)
-		{
-			g.drawImage(animation[direction].nextImage(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-		}
-		else
-		{
-			g.drawImage(animation[direction].stillImage(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-		}		
-		
-		moving = false;
-	}
+	
 	
 
 }

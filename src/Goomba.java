@@ -1,12 +1,19 @@
+import java.awt.Graphics;
+import java.awt.Toolkit;
+
 public class Goomba extends Sprite
 {
-	final static String[] pose = {"goombaL", "goombaR"};
+	final static String[] pose = {"forward"};
 	
 
 	public Goomba(int x, int y, int direction)
 	{
-		super("G", x, y, 45, 45, 2, 0, pose);
+		super("g", x, y, 40, 40, 4, 0, pose);
 	}
 	
+	public void draw(Graphics g)
+	{
+		g.drawImage(animation[direction].nextImage(2), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
 
+	}
 }
