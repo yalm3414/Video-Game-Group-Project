@@ -12,7 +12,7 @@ public class Goomba extends Sprite
 	{
 		super("g", x, y, 40, 40, 4, 0, pose);
 		this.physics = true;
-		boolean moveDir = false;
+		boolean moveDir = false; //When moveDir is false, goomba is moving left.  When true, it moves right
 		
 	}
 	
@@ -31,6 +31,18 @@ public class Goomba extends Sprite
 			vx == 10;
 		}
 
+	}
+	
+	public void changeDir() {
+		if(Goomba.overlaps() == true && moveDir == false) {
+			moveDir = true;
+		}
+		else if(Goomba.overlaps() == true && moveDir == true) {
+			moveDir = false;
+		} else {
+			continue;
+		}
+		
 	}
 	
 
