@@ -61,6 +61,7 @@ public class Mario extends Sprite
 		}
 
 	}
+	
 	public void draw(Graphics g)
 	{
 		
@@ -75,7 +76,6 @@ public class Mario extends Sprite
 			}	
 		}
 		if(jumping) {
-			System.out.println(this.direction);
 			g.drawImage(animation[direction].getJump(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
 		}
 		if(ducking) {

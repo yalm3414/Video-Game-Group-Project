@@ -85,6 +85,20 @@ public class Rect
 			r.y -= penetration + 1;
 	}
 	
+	public void pushUp(Mario s)
+	{
+		double penetration = s.y + s.h - y ;
+		
+		if(penetration < s.h/2)
+			
+			s.y -= penetration + 1;
+			s.vx = 0;
+			s.vy = 0;
+		
+			s.grounded = true;
+			s.jumping = false;
+	}
+	
 	public void pushDown(Rect r)
 	{
 		double penetration = y + h - r.y;
@@ -94,6 +108,13 @@ public class Rect
 			r.y += penetration + 1;
 	}
 	
+	public void pushes(Mario s)
+	{
+		pushDown(s);
+		pushUp(s);
+		pushRight(s);
+		pushLeft(s);
+	}
 	
 	public void pushes(Rect r)
 	{
