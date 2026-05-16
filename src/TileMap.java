@@ -20,7 +20,7 @@ public class TileMap
 	int tileSize = 16;
 	char active_tile = '.';
 	
-	ArrayList<Rect> rects = new ArrayList<>();
+	static ArrayList<Rect> rects = new ArrayList<>();
 	//------------------------------------------------------------------------//
 	
 	public TileMap()

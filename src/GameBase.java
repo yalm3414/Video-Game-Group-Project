@@ -11,7 +11,7 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	int screenWidth = screenSize.width;
 
 	
-	boolean[] pressing = new boolean[1024];
+	static boolean[] pressing = new boolean[1024];
 	
 		
 	public static final int UP 			= KeyEvent.VK_UP;
@@ -95,7 +95,7 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	public final void run()
 	{
 		
-		musicPlayer.playMusic("../Music/Background_Theme.wav");
+//		musicPlayer.playMusic("../Music/Background_Theme.wav");
 		while(true)
 		{
 			inGameLoop();

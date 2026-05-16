@@ -6,15 +6,10 @@ public class Sprite extends Rect
 	String name;
 		
 	boolean moving = false;
-	
-	
-	
 	public boolean grounded = true;
+	boolean physics = true;
 	
-	
-	boolean physics = false;
-	
-	double g = 1.0;
+//	double g = 1.3;
 	
 	
 	Animation[] animation;
@@ -41,14 +36,14 @@ public class Sprite extends Rect
 		x += vx;		
 		y += vy;
 		
-		vy += g;
+//		vy += g;
 
 		
-		if (physics == false)
-		{
-			vx = 0;
-			vy = 0;
-		}
+//		if (physics == false)
+//		{
+//			vx = 0;
+//			vy = 0;
+//		}
 	}
 	
 	

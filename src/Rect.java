@@ -8,7 +8,8 @@ public class Rect
 	int w;
 	int h;
 	
-
+	Boolean pushed = false;
+	
 	double vx;
 	double vy;
 	
@@ -58,71 +59,113 @@ public class Rect
 		selected = ! selected;
 	}
 	
-	public void pushLeft(Rect r)
+	public void pushes(Mario s)
 	{
-		double penetration = r.x + r.w - x;
+		if(pushed == false) {
+			pushUp(s);
+		}
+		if(pushed == false) {
+			pushDown(s);
+		}
+		if(pushed == false) {
+			pushRight(s);
+		}
+		if(pushed == false) {
+			pushLeft(s);
+		}
+		if(pushed == true) pushed = false;
+	}
+	public void pushLeft(Mario s)
+	{
+		double penetration = s.x + s.w - x;
 		
-		if(penetration < r.w/2)
-			
-			r.x -= penetration + 1;
+		if(penetration < s.w/2) {
+			s.x -= penetration + 2;
+		}
 	}
 	
-	public void pushRight(Rect r)
+	public void pushRight(Mario s)
 	{
-		double penetration = x + w - r.x;
+		double penetration = x + w - s.x;
 		
-		if(penetration < r.w/2)
-			
-			r.x += penetration + 1;
-	}
-	
-	public void pushUp(Rect r)
-	{
-		double penetration = r.y + r.h - y ;
-		
-		if(penetration < r.h/2)
-			
-			r.y -= penetration + 1;
+		if(penetration < s.w/2) {
+
+			s.x += penetration + 2;
+			pushed = true;
+		}
 	}
 	
 	public void pushUp(Mario s)
 	{
 		double penetration = s.y + s.h - y ;
 		
-		if(penetration < s.h/2)
+		if(penetration < s.h) {
 			
 			s.y -= penetration + 1;
-			s.vx = 0;
-			s.vy = 0;
-		
 			s.grounded = true;
 			s.jumping = false;
+			pushed = true;
+		}
 	}
 	
-	public void pushDown(Rect r)
+	public void pushDown(Mario s)
 	{
-		double penetration = y + h - r.y;
+		double penetration = y + h - s.y;
 		
-		if(penetration < r.h/2)
+		if(penetration < s.h/2) {
 			
-			r.y += penetration + 1;
+			s.y += penetration + 1;
+			s.vx = 0;
+			s.vy = 0;
+			pushed = true;
+		}
 	}
 	
-	public void pushes(Mario s)
-	{
-		pushDown(s);
-		pushUp(s);
-		pushRight(s);
-		pushLeft(s);
-	}
-	
-	public void pushes(Rect r)
-	{
-		pushDown(r);
-		pushUp(r);
-		pushRight(r);
-		pushLeft(r);		
-	}
+//	public void pushes(Rect r)
+//	{
+//		pushDown(r);
+//		pushUp(r);
+//		pushRight(r);
+//		pushLeft(r);		
+//	}
+//	public void pushDown(Rect r)
+//	{
+//		double penetration = y + h - r.y;
+//		
+//		if(penetration < r.h/2) {
+//			
+//			r.y += penetration + 1;
+//			pushed = true;
+//		}
+//	}
+//	public void pushLeft(Rect r)
+//	{
+//		double penetration = r.x + r.w - x;
+//		
+//		if(penetration < r.w/2)
+//			
+//			r.x -= penetration + 1;
+//	}
+//	
+//	public void pushRight(Rect r)
+//	{
+//		double penetration = x + w - r.x;
+//		
+//		if(penetration < r.w/2)
+//			
+//			r.x += penetration + 1;
+//	}
+//	
+//	public void pushUp(Rect r)
+//	{
+//		double penetration = r.y + r.h - y ;
+//		
+//		if(penetration < r.h/2)
+//			
+//			r.y -= penetration + 1;
+//	}
+//	
+
 	
 	public boolean overlaps(Rect r)
 	{
