@@ -5,12 +5,13 @@ public class Goomba extends Sprite
 {
 	final static String[] pose = {"forward"};
 	boolean moveDir = false;
-
-	
+	boolean alive = true;
+	Rect gtop;
 
 	public Goomba(int x, int y, int direction)
 	{
 		super("g", x, y, 40, 40, 4, 0, pose);
+		Rect gtop = new Rect(x, y+1, 40, 0);
 		this.physics = true;
 		boolean moveDir = false;
 	//	When moveDir is false, goomba is moving left.  When true, it moves right
@@ -23,23 +24,33 @@ public class Goomba extends Sprite
 
 	}
 	
-	public void movement() {
+	public void update(Mario m) {
 		if(moveDir == false)
 		{
-			this.goLT(1);
+			this.goLT(5);
 		}
 		if(pushed == true && moveDir == false) {
-			this.goRT(1);
+			this.goRT(5);
 			moveDir = true;
 		}
 		if(pushed == true && moveDir == true) {
-			this.goLT(1);
+			this.goLT(5);
 			moveDir = false;
 		}
 		if(moveDir == true) {
-			this.goRT(1);
+			this.goRT(5);
 		}
+		//the goomba death function; just yeets it downward offscreen
+		if(this.gtop.overlaps(m)){
+			this.physics = false;
+			this.goDN(5000);
+		}
+		
+			
+		
 	}
+
+		
 	
 }
 
