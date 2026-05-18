@@ -26,15 +26,23 @@ public class Goomba extends Sprite
 	public void movement() {
 		if(moveDir == false)
 		{
-			x -= 1;
+			this.goLT(1);
+		}
+		if(pushed == true && moveDir == false) {
+			this.goRT(1);
+			moveDir = true;
+		}
+		if(pushed == true && moveDir == true) {
+			this.goLT(1);
+			moveDir = false;
 		}
 		if(moveDir == true) {
-			x += 1;
+			this.goRT(1);
 		}
-
 	}
 	
-	public void changeDir() {
+}
+
 //		if(Goomba.overlaps() == true && moveDir == false) {
 //			moveDir = true;
 //		}
@@ -43,11 +51,11 @@ public class Goomba extends Sprite
 //		} else {
 //			continue;
 //		}
-		
-	}
-	
-
-}
+//		
+//	}
+//	
+//
+//}
 //import java.awt.Graphics;
 //import java.awt.Toolkit;
 //
