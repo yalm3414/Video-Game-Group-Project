@@ -17,7 +17,7 @@ public class MarioBrothers extends GameBase
 	boolean size;
 	
 	
-	Goomba goomba = new Goomba(700, 385);
+	static Goomba goomba = new Goomba(700, 385);
 	
 	public void inGameLoop()
 	{
@@ -28,7 +28,7 @@ public class MarioBrothers extends GameBase
 		
 	    for(int i = 0; i < TileMap.rects.size(); i++)
 		{
-			if(mario.overlaps(TileMap.rects.get(i)))
+			if(mario.overlaps(TileMap.rects.get(i)) && mario.physics)
 			{
 				TileMap.rects.get(i).pushes(mario);
 			
@@ -50,7 +50,7 @@ public class MarioBrothers extends GameBase
 			}
 			if(pressing[_D]) {
 				mario.goRT();
-				if(mario.x > Camera.x + screenWidth/2) Camera.moveRight(5);
+				if(mario.x > Camera.x + screenWidth/2) Camera.moveRight((int) mario.vx);
 				
 			}if(!(pressing[_S])) {
 				mario.ducking = false;

@@ -21,7 +21,7 @@ public class Goomba extends Sprite
 	public void draw(Graphics g)
 	{
 	
-		g.drawImage(animation[0].nextImage(2), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+		g.drawImage(animation[direction].nextImage(2), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
 
 	}
 	
@@ -29,21 +29,25 @@ public class Goomba extends Sprite
 		if(g.moveDir == false)
 		{
 			g.moveLT(1);
+			g.gtop.x -= 1;
 		}
 		if(g.moveDir == true) {
 			g.moveRT(1);
+			g.gtop.x += 1;
 		}
 		if(g.pushed == true && g.moveDir == false) {
-			g.moveRT(2);
+			g.moveLT(1);
+			g.gtop.x -= 1;
 			g.moveDir = true;
 		}
 		if(g.pushed == true && g.moveDir == true) {
 			g.moveRT(1);
+			g.gtop.x += 1;
 			g.moveDir = false;
 		}
 		
 		//the goomba death function; just yeets it downward offscreen
-		if(g.gtop.overlaps(g)){
+		if(MarioBrothers.mario.overlaps(g.gtop)){
 			g.physics = false;
 			g.goDN(5000);
 		}
