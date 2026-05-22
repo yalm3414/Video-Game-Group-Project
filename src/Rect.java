@@ -81,6 +81,8 @@ public class Rect
 		
 		if(penetration < s.w/2) {
 			s.x -= penetration + 2;
+	
+			s.vx = 0;
 		}
 	}
 	
@@ -92,6 +94,7 @@ public class Rect
 
 			s.x += penetration + 2;
 			pushed = true;
+			s.vx = 0;
 		}
 	}
 	
@@ -115,7 +118,6 @@ public class Rect
 		if(penetration < s.h/2) {
 			
 			s.y += penetration + 1;
-			s.vx = 0;
 			s.vy = 0;
 			pushed = true;
 		}

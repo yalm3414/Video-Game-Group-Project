@@ -17,12 +17,12 @@ public class MarioBrothers extends GameBase
 	boolean size;
 	
 	
-	Goomba goomba = new Goomba(500, 375, Goomba.FORWARD);
+	Goomba goomba = new Goomba(700, 385);
 	
 	public void inGameLoop()
 	{
 		mario.update(mario);
-		//goomba.update(mario);
+		Goomba.update(goomba);
 
 		mario.grounded = false;
 		
