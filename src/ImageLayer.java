@@ -30,7 +30,7 @@ public class ImageLayer
 	{
 		for(int i = 0; i < 20; i++)
 		{
-			g.drawImage(image, x  + w*i - Camera.x/z, y - Camera.y/z, w, h, null);
+			g.drawImage(image, x  + w*i - (int)Camera.x/z, y - (int)Camera.y/z, w, h, null);
 			
 		}
 	}

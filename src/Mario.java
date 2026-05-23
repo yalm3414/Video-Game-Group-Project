@@ -14,12 +14,13 @@ public class Mario extends Sprite
     boolean jumping = false;
     boolean ducking = false;
     boolean isDead = false;
+    boolean skidding = false;
     
     // Velocity & physics
     double gravity = .5;
-    double topSpeed = 5.0;
+    double topSpeed = 5;
     double jumpForce = -12.0;
-    double acceleration = 1.15;
+    double acceleration = 1;
    
     
     // Variables to handle marios transformations
@@ -38,7 +39,7 @@ public class Mario extends Sprite
     
     public Mario(String name, int x, int y, int direction)
     {
-        super(name, x, y, 0, 0, 6, direction, pose);
+        super(name, x, y, 0, 0, 7, direction, pose);
         
         if(name.equals("bm")) {
             this.name = "bm";
@@ -97,19 +98,19 @@ public class Mario extends Sprite
 
 		else {
 		
-	//		if(count == 0) {
-	//			if(MarioBrothers.mario.x > 500)	{
-	//			MarioBrothers.mario.grows();
-	//			count++;
-	//			}
-	//		}
-	//
-	//		if(count == 1) {
-	//			if(MarioBrothers.mario.x > 1700) {
-	//			MarioBrothers.mario.shrinks();
-	//			count++;
-	//			}
-	//		}
+			if(count == 0) {
+				if(MarioBrothers.mario.x > 500)	{
+				MarioBrothers.mario.grows();
+				count++;
+				}
+			}
+	
+			if(count == 1) {
+				if(MarioBrothers.mario.x > 1700) {
+				MarioBrothers.mario.shrinks();
+				count++;
+				}
+			}
 	    	// Apply gravity
 	        if(!grounded) {
 	            vy += gravity;
@@ -186,31 +187,33 @@ public class Mario extends Sprite
         if(grounded) ducking = true;
     }
 
-    public void goLT()
-    {
-    	
+    public void goLT() {
+        if(vx > 0) skidding = true;  // moving right but pressing left = skid
+        
         if(!(ducking)) {
-        	if(vx > -5) {
-        		vx -= acceleration;
-        	}
-        	else {
-        		vx = -topSpeed;
-        	}
+            if(skidding) {
+                vx -= acceleration * .08; // decelerate faster
+                if(vx <= 0) skidding = false; // stop skidding once stopped
+            } else {
+                if(vx > -topSpeed) vx -= acceleration;
+                else vx = -topSpeed;
+            }
             direction = LT;
             moving = true;
         }
     }
     
-    public void goRT()
-    {
-    
+    public void goRT() {
+        if(vx < 0) skidding = true;  // moving left but pressing right = skid
+        
         if(!(ducking)) {
-        	if(vx < 5) {
-        		vx += acceleration;
-        	}
-        	else {
-        		vx = topSpeed;
-        	}
+            if(skidding) {
+                vx += acceleration * .08;
+                if(vx >= 0) skidding = false;
+            } else {
+                if(vx < topSpeed) vx += acceleration;
+                else vx = topSpeed;
+            }
             direction = RT;
             moving = true;
         }
@@ -265,14 +268,17 @@ public class Mario extends Sprite
             return;
         }
         if(!(jumping) && (!(ducking)  && (!(growing)) && (!(shrinking))) && (!(isDead))) {
-            if(moving || vx > 1)
+            if( vx > 1 || ((moving)  && ((direction == RT && Math.floor(vx) > 0))) || ((moving) && ((direction == LT && Math.ceil(vx) < 0)) ))
             {
                 g.drawImage(animation[direction].nextImage(3), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
             }
-            else
+            else if (((direction == LT && Math.floor(vx) > 0) || (direction == RT && Math.ceil(vx) < 0) || skidding) && ((moving)))
             {
-                g.drawImage(animation[direction].stillImage(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+            	g.drawImage(animation[direction].getSkid(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
             }   
+            else {
+            	g.drawImage(animation[direction].stillImage(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+            }
         }
         if(jumping  && (!(isDead))) {
             g.drawImage(animation[direction].getJump(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);

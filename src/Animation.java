@@ -62,6 +62,10 @@ public class Animation
 		return image[5];
 	}
 	
+	public Image getSkid() {
+		return image[6];
+	}
+	
 
 
 }
