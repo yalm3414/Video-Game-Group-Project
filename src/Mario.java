@@ -33,6 +33,14 @@ public class Mario extends Sprite
     boolean control = true;;
 
     Image deadMario = Toolkit.getDefaultToolkit().getImage("sm_dies.png");
+    
+	boolean win;
+	boolean walkOff;
+    Image winBMario = Toolkit.getDefaultToolkit().getImage("bm_flag_rt.png");
+	Image winSMario = Toolkit.getDefaultToolkit().getImage("sm_flag_rt.png");
+	Image winMario;
+	
+	
     int deathBounceTimer = 0;
     final int DEATH_BOUNCE_DURATION = 60; // frames total
   
@@ -73,7 +81,15 @@ public class Mario extends Sprite
 	
 	public void update(Mario s)
     {
+		if(s.x > 6340) {
+			win(s);
+		}
+		if(win && grounded && walkOff) {
 		
+			if(s.x < 6525) {
+				s.goRT(3);
+			}
+		}
 		 if(s.y > 420 && !(isDead)) {
 		        gameOver();
 		    }
@@ -105,12 +121,12 @@ public class Mario extends Sprite
 				}
 			}
 	
-			if(count == 1) {
-				if(MarioBrothers.mario.x > 1700) {
-				MarioBrothers.mario.shrinks();
-				count++;
-				}
-			}
+//			if(count == 1) {
+//				if(MarioBrothers.mario.x > 1700) {
+//				MarioBrothers.mario.shrinks();
+//				count++;
+//				}
+//			}
 	    	// Apply gravity
 	        if(!grounded) {
 	            vy += gravity;
@@ -118,8 +134,7 @@ public class Mario extends Sprite
 	
 	        // Apply velocity to position
 	        x += vx;
-	        
-	        System.out.println(vx);
+	       
 	        y += vy;
 	        // Friction 
 	        vx *= .9;
@@ -158,7 +173,25 @@ public class Mario extends Sprite
 		}
     }
   
-    private Mario switchMarios() {
+    private void win(Mario s) {
+    	gravity = 0.1;
+    	control = false;
+    	vx = 0;
+
+    	if(s.name.equals("bm")){
+    		winMario = winBMario;
+    	}
+    	else {
+    		winMario = winSMario;
+    	}
+    	win = true;
+    	
+    	if(grounded) walkOff = true;
+    	
+    
+	}
+
+	private Mario switchMarios() {
 		if(growing) {
 			MarioBrothers.bmario.x = MarioBrothers.mario.x;
 			MarioBrothers.bmario.y = MarioBrothers.mario.y;
@@ -250,13 +283,19 @@ public class Mario extends Sprite
             control = false;
             deathBounceTimer = DEATH_BOUNCE_DURATION;
         } else {
-            System.exit(0);
+            MarioBrothers newGame = new MarioBrothers();
         }
     }
     
     
     public void draw(Graphics g)
     {
+    	
+    
+		if(win && !(walkOff)) {
+			g.drawImage(winMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+			return;
+    	}
     	if(isDead && MarioBrothers.mario.y < 450) {
     		
     		g.drawImage(deadMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);

@@ -6,7 +6,6 @@ public class MarioBrothers extends GameBase
 {	
 
 	
-	
 	TileMap map = new TileMap("world_1-1_OW.map", 32, 16);
 
 	static Mario smario = new Mario("sm", 50, 350, Mario.RT);
@@ -50,7 +49,9 @@ public class MarioBrothers extends GameBase
 			}
 			if(pressing[_D]) {
 				mario.goRT();
-				if(mario.x > Camera.x + screenWidth/2) Camera.moveRight((int) mario.vx);
+				if(mario.x > Camera.x + screenWidth/2 && Camera.x < 5400) {
+					Camera.x = Camera.x + mario.vx;
+				}
 				
 			}if(!(pressing[_S])) {
 				mario.ducking = false;
