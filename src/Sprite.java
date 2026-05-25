@@ -6,10 +6,10 @@ public class Sprite extends Rect
 	String name;
 		
 	boolean moving = false;
-	public boolean grounded = true;
+	public boolean grounded = false;
 	boolean physics = true;
 	
-//	double g = 1.3;
+	double g = 0.8;
 	
 	
 	Animation[] animation;
@@ -31,26 +31,49 @@ public class Sprite extends Rect
 		this.direction = direction;
 	}
 	
+	//Removed poses array for sprites that only have one pose
+	public Sprite(String name, int x, int y, int w, int h, int totalFrames, int direction)
+	{
+		super(x, y, w, h);
+		
+		this.name = name;
+		animation = new Animation[1];
+		
+		for(int i = 0; i < animation.length; i++)
+		{
+			animation[i] = new Animation(name, totalFrames, 10, "png");
+		}		
+		
+		
+		this.direction = direction;
+	}
+	
+	
 	public void move()
 	{
 		x += vx;		
 		y += vy;
 		
-//		vy += g;
+		vy += g;
 
 		
-//		if (physics == false)
-//		{
-//			vx = 0;
-//			vy = 0;
-//		}
+		if (physics == false)
+		{
+			vx = 0;
+			vy = 0;
+		}
 	}
 	
+	public void jump()
+	{
+		vy = -10;
+		
+		moving = true;
+	}
 	
 	public void goUP(int dy)
 	{
 		vy = -dy;
-		
 	//	direction = UP;
 		
 		moving = true;

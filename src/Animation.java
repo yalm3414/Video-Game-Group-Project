@@ -49,6 +49,23 @@ public class Animation
 	}
 	
 	
+	//Cycles through all images 
+	public Image nextImage()
+	{
+		delay--;
+		
+		if(delay == 0)
+		{
+			if( current == image.length-1)   current = 0;
+			else                             current++;
+			
+			delay = duration;
+		}
+				
+		return image[current];
+	}
+	
+	
 	public Image getImage(String filename)
 	{
 		return Toolkit.getDefaultToolkit().getImage(filename);

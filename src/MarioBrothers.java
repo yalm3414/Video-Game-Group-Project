@@ -26,16 +26,15 @@ public class MarioBrothers extends GameBase
 
 		mario.grounded = false;
 		
-	    for(int i = 0; i < TileMap.rects.size(); i++)
+		// Collision detection and handling for all tiles in tileMap for mario
+		map.collisionOn(mario);
+	    
+		//Collision detection and handling for all tiles in tileMap for all items
+		for(int i = 0; i < TileMap.items.size(); i++)
 		{
-			if(mario.overlaps(TileMap.rects.get(i)) && mario.physics)
-			{
-				TileMap.rects.get(i).pushes(mario);
-			
-			}
-			
-			
+			map.collisionOn(TileMap.items.get(i));
 		}
+		
 	    if(mario.control) {
 			if(pressing[_W]) {
 				mario.jump();
@@ -68,7 +67,6 @@ public class MarioBrothers extends GameBase
 		map.draw(g);
 		mario.draw(g);
 		goomba.draw(g);
-	
 		
 	}
 	

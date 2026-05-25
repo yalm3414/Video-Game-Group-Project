@@ -20,7 +20,11 @@ public class TileMap
 	int tileSize = 16;
 	char active_tile = '.';
 	
-	static ArrayList<Rect> rects = new ArrayList<>();
+	ArrayList<MysteryBlock> mystery = new ArrayList<>();
+	ArrayList<Tile> tiles = new ArrayList<>();
+	public static ArrayList<Item> items = new ArrayList<>();
+	
+	
 	//------------------------------------------------------------------------//
 	
 	public TileMap()
@@ -41,7 +45,7 @@ public class TileMap
 		this.scale = scale;
 		this.tileSize = tileSize;
 		
-		loadRects();
+		loadAnimated();
 	}
 	
 	//------------------------------------------------------------------------//
@@ -108,39 +112,24 @@ public class TileMap
 		
 	}
 	
-	public void loadRects()
+	// Loads all animated tiles even the ones off-screen
+	// Since for animations to work you have to have the tiles always created
+	public void loadAnimated()
 	{
-		
 		for(int row = 0; row < map.length; row++)
 		{	
 			for(int col = 0; col < map[row].length(); col++)
 			{
 				char c = map[row].charAt(col);				
 				
-				if(c != '.')
-				{	
-					rects.add(new Rect (scale*col - Camera.x, scale*row - Camera.y,scale,scale));
+				//Testing mystery blocks with animations
+				if(c == 'B')
+				{
+					mystery.add(new MysteryBlock( scale*col - Camera.x, scale*row - Camera.y, scale, scale, 0));
+	
 				}
 			}
 		}	
-		/*
-		int c_row = Math.max(Camera.y / scale, 0);
-		int c_col = Math.max(Camera.x / scale, 0);
-		for(int row = c_row; row < Math.min(c_row+950/scale, map.length); row++)
-		{	
-			for(int col = c_col; col < Math.min(c_col+1500/scale, map[0].length()); col++)
-			{
-				char c = map[row].charAt(col);				
-				
-				if((c != '.') && ((c - 'A') < tile.length))
-				{
-				   rects.add(new Rect (scale*col - Camera.x, scale*row - Camera.y,scale,scale));
-				   
-				}
-			}
-		}
-		*/
-		System.out.println(rects.size());
 	}
 
 	//------------------------------------------------------------------------//
@@ -249,9 +238,12 @@ public class TileMap
 
 	public void draw(Graphics g)
 	{
-	
+
 		g.drawImage(background, - Camera.x, - Camera.y, background.getWidth(null)*(scale/tileSize),background.getHeight(null)*(scale/tileSize), null);
-	
+		
+		// Resets to make sure only keeping track of tiles being displayed
+		tiles.clear();
+		
 		int c_row = Math.max(Camera.y / scale, 0);
 		int c_col = Math.max(Camera.x / scale, 0);
 		for(int row = c_row; row < Math.min(c_row+950/scale, map.length); row++)
@@ -260,32 +252,80 @@ public class TileMap
 			{
 				char c = map[row].charAt(col);				
 				
-				if((c != '.') && ((c - 'A') < tile.length))
+				
+				// loads all tiles except for mystery blocks (since they are animated) and draws them
+				if((c != '.') && (c != 'B') && ((c - 'A') < tile.length))
 				{
-				   g.drawImage(tile[c - 'A'], scale*col - Camera.x, scale*row - Camera.y, scale, scale, null); 
+					tiles.add(new Tile(tile[c - 'A'], scale*col, scale*row, scale, scale));
+					tiles.get(tiles.size() - 1).draw(g);
 				}
 			}
 		}
+		
+		// Draws all mystery blocks 
+		for(int i = 0; i < mystery.size();i++)
+		{
+			mystery.get(i).draw(g);
+		}
+		
 	}
 	
-	public void drawNoClipping(Graphics g)
+	
+	
+	// Collision handling for mario with all tiles
+	public void collisionOn(Mario m)
 	{
-		g.drawImage(background, - Camera.x, - Camera.y, background.getWidth(null)*(scale/tileSize),background.getHeight(null)*(scale/tileSize), null);
+		//Collision handling for all animated mystery block tiles
+	    for(int i = 0; i < mystery.size(); i++)
+		{
+	    	if(m.overlaps(mystery.get(i)) && m.physics)
+	    	{
+	    		mystery.get(i).pushes(m);
+			}
+		}
+	    
 		
-		for(int row = 0; row < map.length; row++)
-		{	
-			for(int col = 0; col < map[row].length(); col++)
+		//Collision handling for all static tiles
+	    for(int i = 0; i < tiles.size(); i++)
+		{
+			if(m.overlaps(tiles.get(i)) && m.physics)
 			{
-				char c = map[row].charAt(col);				
-				
-				if(c != '.')
-				{	
-			      g.drawImage(tile[c - 'A'], scale*col - Camera.x, scale*row - Camera.y, scale, scale, null);
-			      rects.get(col+row).draw(g);
+				tiles.get(i).pushes(m);
+			
+			}
+			
+		}
+	    
+	    
+	}
+	
+	// Collision handling for rectangles with all tiles 
+		public void collisionOn(Rect m)
+		{
+			//Collision handling for all animated mystery block tiles
+		    for(int i = 0; i < mystery.size(); i++)
+			{
+		    	if(m.overlaps(mystery.get(i)))
+		    	{
+		    		mystery.get(i).pushes(m);
 				}
 			}
-		}		
-	}
+		    
+			
+			//Collision handling for all static tiles
+		    for(int i = 0; i < tiles.size(); i++)
+			{
+				if(m.overlaps(tiles.get(i)))
+				{
+					tiles.get(i).pushes(m);
+				
+				}
+				
+			}
+		    
+		    
+		}
+	
 	
 	//------------------------------------------------------------------------//
    // Convenience method for loading images                                  //
