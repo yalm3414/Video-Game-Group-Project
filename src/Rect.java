@@ -123,24 +123,25 @@ public class Rect
 		}
 	}
 	
-	public void pushes(Rect r)
+	
+	//Replaced Rectangle collision handling with Sprite
+	public void pushes(Sprite r)
 	{
 		pushDown(r);
 		pushUp(r);
 		pushRight(r);
 		pushLeft(r);		
 	}
-	public void pushDown(Rect r)
+	public void pushDown(Sprite r)
 	{
 		double penetration = y + h - r.y;
 		
 		if(penetration < r.h/2) {
 			
 			r.y += penetration + 1;
-			pushed = true;
 		}
 	}
-	public void pushLeft(Rect r)
+	public void pushLeft(Sprite r)
 	{
 		double penetration = r.x + r.w - x;
 		
@@ -149,7 +150,7 @@ public class Rect
 			r.x -= penetration + 1;
 	}
 	
-	public void pushRight(Rect r)
+	public void pushRight(Sprite r)
 	{
 		double penetration = x + w - r.x;
 		
@@ -158,14 +159,15 @@ public class Rect
 			r.x += penetration + 1;
 	}
 	
-	public void pushUp(Rect r)
+	public void pushUp(Sprite r)
 	{
 		double penetration = r.y + r.h - y ;
 		
 		if(penetration < r.h/2)
 			
 			r.y -= penetration + 1;
-		
+			
+			r.physics = false;
 	}
 	
 

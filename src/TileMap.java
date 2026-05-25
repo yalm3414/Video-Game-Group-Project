@@ -300,12 +300,12 @@ public class TileMap
 	}
 	
 	// Collision handling for rectangles with all tiles 
-		public void collisionOn(Rect m)
+		public void collisionOn(Sprite m)
 		{
 			//Collision handling for all animated mystery block tiles
 		    for(int i = 0; i < mystery.size(); i++)
 			{
-		    	if(m.overlaps(mystery.get(i)))
+		    	if(m.overlaps(mystery.get(i)) && m.physics)
 		    	{
 		    		mystery.get(i).pushes(m);
 				}
@@ -315,7 +315,7 @@ public class TileMap
 			//Collision handling for all static tiles
 		    for(int i = 0; i < tiles.size(); i++)
 			{
-				if(m.overlaps(tiles.get(i)))
+				if(m.overlaps(tiles.get(i)) && m.physics)
 				{
 					tiles.get(i).pushes(m);
 				
