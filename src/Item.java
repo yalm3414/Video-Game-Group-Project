@@ -11,7 +11,7 @@ public class Item extends Sprite {
 	
 	public void draw(Graphics g)
 	{
-		g.drawImage(animation[direction].nextImage(), (int) (x-Camera.x) , (int) (y - Camera.y), w, h, null);
+		g.drawImage(animation[direction].nextImage(), (int)(x-Camera.x) , (int)(y - Camera.y), w, h, null);
 	}
 	
 }

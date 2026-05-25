@@ -125,7 +125,7 @@ public class TileMap
 				//Testing mystery blocks with animations
 				if(c == 'B')
 				{
-					mystery.add(new MysteryBlock( scale*col - Camera.x, scale*row - Camera.y, scale, scale, 0));
+					mystery.add(new MysteryBlock( scale*col -(int) Camera.x, scale*row - (int)Camera.y, scale, scale, 0));
 	
 				}
 			}
@@ -239,13 +239,13 @@ public class TileMap
 	public void draw(Graphics g)
 	{
 
-		g.drawImage(background, - Camera.x, - Camera.y, background.getWidth(null)*(scale/tileSize),background.getHeight(null)*(scale/tileSize), null);
+		g.drawImage(background, (int)- Camera.x, (int)- Camera.y, background.getWidth(null)*(scale/tileSize),background.getHeight(null)*(scale/tileSize), null);
 		
 		// Resets to make sure only keeping track of tiles being displayed
 		tiles.clear();
 		
-		int c_row = Math.max(Camera.y / scale, 0);
-		int c_col = Math.max(Camera.x / scale, 0);
+		int c_row = Math.max((int)Camera.y / scale, 0);
+		int c_col = Math.max((int)Camera.x / scale, 0);
 		for(int row = c_row; row < Math.min(c_row+950/scale, map.length); row++)
 		{	
 			for(int col = c_col; col < Math.min(c_col+1500/scale, map[0].length()); col++)
