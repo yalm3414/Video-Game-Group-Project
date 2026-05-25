@@ -1,8 +1,8 @@
 
 public class Camera
 {
-	static int x;
-	static int y;
+	static double  x;
+	static double  y;
 	
 	
 	public Camera(int x, int y)

@@ -152,7 +152,9 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	public void mouseDragged (MouseEvent e){}
 	public void mousePressed (MouseEvent e){}
 	public void mouseReleased(MouseEvent e){}
-	public void mouseClicked (MouseEvent e){}
+	public void mouseClicked (MouseEvent e){
+		System.out.println(e.getX() + Camera.x + ", " + e.getY() + Camera.y);
+	}
 	public void mouseEntered (MouseEvent e){}
 	public void mouseExited  (MouseEvent e){}
 	
