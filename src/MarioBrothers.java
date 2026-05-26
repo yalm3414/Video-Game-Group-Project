@@ -36,7 +36,9 @@ public class MarioBrothers extends GameBase
 			if(mario.overlaps(TileMap.items.get(i)) && TileMap.items.get(i).name == "Mushroom")
 			{	
 				TileMap.items.remove(i);
-				mario.grows();
+				if(mario == smario) {
+					mario.grows();
+				}
 				break;
 			}
 			else if(mario.overlaps(TileMap.items.get(i)) && TileMap.items.get(i).name == "Flower")

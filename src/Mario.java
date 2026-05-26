@@ -36,6 +36,8 @@ public class Mario extends Sprite
     
 	boolean win;
 	boolean walkOff;
+	boolean visible = true;
+	
     Image winBMario = Toolkit.getDefaultToolkit().getImage("bm_flag_rt.png");
 	Image winSMario = Toolkit.getDefaultToolkit().getImage("sm_flag_rt.png");
 	Image winMario;
@@ -89,6 +91,9 @@ public class Mario extends Sprite
 			if(s.x < 6525) {
 				s.goRT(3);
 			}
+			else {
+				visible = false;
+			}
 		}
 		 if(s.y > 420 && !(isDead)) {
 		        gameOver();
@@ -113,20 +118,6 @@ public class Mario extends Sprite
 		    }
 
 		else {
-		
-			if(count == 0) {
-				if(MarioBrothers.mario.x > 500)	{
-				MarioBrothers.mario.grows();
-				count++;
-				}
-			}
-	
-//			if(count == 1) {
-//				if(MarioBrothers.mario.x > 1700) {
-//				MarioBrothers.mario.shrinks();
-//				count++;
-//				}
-//			}
 	    	// Apply gravity
 	        if(!grounded) {
 	            vy += gravity;
@@ -291,41 +282,42 @@ public class Mario extends Sprite
     public void draw(Graphics g)
     {
     	
-    
-		if(win && !(walkOff)) {
-			g.drawImage(winMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-			return;
-    	}
-    	if(isDead && MarioBrothers.mario.y < 450) {
-    		
-    		g.drawImage(deadMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-    	    
-    	}
-    	if(growing || shrinking  && (!(isDead)))
-        {
-            g.drawImage(growFrames[growFrame], (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-            return;
-        }
-        if(!(jumping) && (!(ducking)  && (!(growing)) && (!(shrinking))) && (!(isDead))) {
-            if( vx > 1 || ((moving)  && ((direction == RT && Math.floor(vx) > 0))) || ((moving) && ((direction == LT && Math.ceil(vx) < 0)) ))
-            {
-                g.drawImage(animation[direction].nextImage(3), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-            }
-            else if (((direction == LT && Math.floor(vx) > 0) || (direction == RT && Math.ceil(vx) < 0) || skidding) && ((moving)))
-            {
-            	g.drawImage(animation[direction].getSkid(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-            }   
-            else {
-            	g.drawImage(animation[direction].stillImage(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-            }
-        }
-        if(jumping  && (!(isDead))) {
-            g.drawImage(animation[direction].getJump(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-        }
-        if(ducking  && (!(isDead))) {
-            g.drawImage(animation[direction].getDuck(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
-        }
-        
-        moving = false;
+    	if(visible) {
+			if(win && !(walkOff)) {
+				g.drawImage(winMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+				return;
+	    	}
+	    	if(isDead && MarioBrothers.mario.y < 450) {
+	    		
+	    		g.drawImage(deadMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	    	    
+	    	}
+	    	if(growing || shrinking  && (!(isDead)))
+	        {
+	            g.drawImage(growFrames[growFrame], (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	            return;
+	        }
+	        if(!(jumping) && (!(ducking)  && (!(growing)) && (!(shrinking))) && (!(isDead))) {
+	            if( vx > 1 || ((moving)  && ((direction == RT && Math.floor(vx) > 0))) || ((moving) && ((direction == LT && Math.ceil(vx) < 0)) ))
+	            {
+	                g.drawImage(animation[direction].nextImage(3), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	            }
+	            else if (((direction == LT && Math.floor(vx) > 0) || (direction == RT && Math.ceil(vx) < 0) || skidding) && ((moving)))
+	            {
+	            	g.drawImage(animation[direction].getSkid(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	            }   
+	            else {
+	            	g.drawImage(animation[direction].stillImage(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	            }
+	        }
+	        if(jumping  && (!(isDead))) {
+	            g.drawImage(animation[direction].getJump(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	        }
+	        if(ducking  && (!(isDead))) {
+	            g.drawImage(animation[direction].getDuck(), (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);
+	        }
+	        
+	        moving = false;
+	    }
     }
 }
