@@ -48,11 +48,12 @@ public class Goomba extends Sprite
 		
 		//the goomba death function; just yeets it downward offscreen
 		if(MarioBrothers.mario.overlaps(g.gtop)){
+			g.alive = false;
 			g.physics = false;
-			g.goDN(5000);
+			g.moveDN(5000);
 		}
 		
-		if(MarioBrothers.mario.overlaps(g) && MarioBrothers.mario.overlaps(g.gtop)== false ) {
+		if(MarioBrothers.mario.overlaps(g) && g.alive && MarioBrothers.mario.overlaps(g.gtop)== false ) {
 			MarioBrothers.mario.isDead = true;
 		}
 		
