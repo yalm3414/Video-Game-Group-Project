@@ -28,9 +28,21 @@ public class MarioBrothers extends GameBase
 		// Collision detection and handling for all tiles in tileMap for mario
 		map.collisionOn(mario);
 	    
-		//Collision detection and handling for all tiles in tileMap for all items
+		// Moves items and handles collision/consumptions of items with mario and tiles
 		for(int i = 0; i < TileMap.items.size(); i++)
 		{	
+			TileMap.items.get(i).move();
+			
+			if(mario.overlaps(TileMap.items.get(i)) && TileMap.items.get(i).name == "Mushroom")
+			{	
+				TileMap.items.remove(i);
+				mario.grows();
+				break;
+			}
+			else if(mario.overlaps(TileMap.items.get(i)) && TileMap.items.get(i).name == "Flower")
+			{
+				
+			}
 			
 			map.collisionOn(TileMap.items.get(i));
 		}
@@ -70,6 +82,11 @@ public class MarioBrothers extends GameBase
 		mario.draw(g);
 		goomba.draw(g);
 		
+		// Draw all the itesm
+		for(int i = 0; i < TileMap.items.size(); i++)
+		{	
+			TileMap.items.get(i).draw(g);
+		}
 	}
 	
 	

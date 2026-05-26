@@ -299,6 +299,7 @@ public class TileMap
 	    
 	}
 	
+	
 	// Collision handling for rectangles with all tiles 
 		public void collisionOn(Sprite m)
 		{
@@ -307,6 +308,12 @@ public class TileMap
 			{
 		    	if(m.overlaps(mystery.get(i)) && m.physics)
 		    	{
+		    		// Removes the coin when it hits the mystery block
+		    		// Should also increase score 
+		    		if(m.name == "Coin")
+		    		{
+		    			TileMap.items.remove(m);
+		    		}
 		    		mystery.get(i).pushes(m);
 				}
 			}

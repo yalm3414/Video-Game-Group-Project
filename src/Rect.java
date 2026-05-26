@@ -167,7 +167,7 @@ public class Rect
 			
 			r.y -= penetration + 1;
 			
-			r.physics = false;
+			r.vy = 0;
 	}
 	
 

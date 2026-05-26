@@ -28,9 +28,9 @@ public class MysteryBlock extends Sprite {
 		
 		items = new Item[]
 				{
-						new Item("Coin",     5, x + (w/4), y-h, w/2, h,0),
-						new Item("Mushroom", 1, x, y-h, w, h,0),
-						new Item("Flower",   4, x, y-h, w, h,0)
+						new Item("Coin",     5, x + (w/4), y-(h + 1), w/2, h,0),
+						new Item("Mushroom", 1, x, y-(h+1), w, h,0),
+						new Item("Flower",   4, x, y-(h+1), w, h,0)
 				};
 	}
 	
@@ -115,16 +115,16 @@ public class MysteryBlock extends Sprite {
 		
 		if(chance < 80 && chance >= 0)
 		{
-			item = items[0];
-			item.jump();
+			TileMap.items.add(items[0]);
+			TileMap.items.get(TileMap.items.size() - 1).jump();
 		} else if (chance < 90 && chance >= 80)
 		{
-			item = items[1];
+			TileMap.items.add(items[1]);
 		} else if (chance < 100 && chance >=90)
 		{
-			item = items[2];
+			TileMap.items.add(items[2]);
 		}
-		TileMap.items.add(item);
+		
 	}
 	
 	public void draw(Graphics g)
@@ -142,19 +142,8 @@ public class MysteryBlock extends Sprite {
 		}
 		
 		
-		
 		if (activated)
 		{
-			if(item != null) 
-			{
-				if(item.y >= y)
-				{
-					//item = null;
-				}
-				item.move();
-				item.draw(g);
-			}
-				
 			
 			g.drawImage(animation[direction].stillImage(), (int) (x-Camera.x) , (int) (y - Camera.y), w, h, null);
 		} else {
