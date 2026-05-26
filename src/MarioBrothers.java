@@ -41,7 +41,9 @@ public class MarioBrothers extends GameBase
 			}
 			else if(mario.overlaps(TileMap.items.get(i)) && TileMap.items.get(i).name == "Flower")
 			{
+				TileMap.items.remove(i);
 				
+				break;
 			}
 			
 			map.collisionOn(TileMap.items.get(i));
