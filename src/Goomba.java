@@ -25,23 +25,27 @@ public class Goomba extends Sprite
 
 	}
 	
+
+	
+	
+	
 	public static void update(Goomba g) {
 		if(g.moveDir == false)
 		{
-			g.moveLT(1);
+			g.x -=1;
 			g.gtop.x -= 1;
 		}
 		if(g.moveDir == true) {
-			g.moveRT(1);
+			g.x += 1;
 			g.gtop.x += 1;
 		}
 		if(g.pushed == true && g.moveDir == false) {
-			g.moveLT(1);
+			g.x -=1;
 			g.gtop.x -= 1;
 			g.moveDir = true;
 		}
 		if(g.pushed == true && g.moveDir == true) {
-			g.moveRT(1);
+			g.x +=1;
 			g.gtop.x += 1;
 			g.moveDir = false;
 		}
