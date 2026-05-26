@@ -52,6 +52,10 @@ public class Goomba extends Sprite
 			g.goDN(5000);
 		}
 		
+		if(MarioBrothers.mario.overlaps(g) && MarioBrothers.mario.overlaps(g.gtop)== false ) {
+			MarioBrothers.mario.isDead = true;
+		}
+		
 			
 		
 	}
