@@ -300,7 +300,7 @@ public class TileMap
 	}
 	
 	// Collision handling for all goombas
-	public void collisionOn(Goomba g) {
+	public void gcollisionOn(Goomba g) {
 	    for(int i = 0; i < tiles.size(); i++)
 		{
 			if(g.overlaps(tiles.get(i)) && g.physics)

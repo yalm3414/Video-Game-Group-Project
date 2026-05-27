@@ -132,9 +132,11 @@ public class Rect
 		}
 		if(pushed == false) {
 			pushRight(s);
+			s.moveDir = true;
 		}
 		if(pushed == false) {
 			pushLeft(s);
+			s.moveDir = false;
 		}
 		if(pushed == true) pushed = false;
 	}
