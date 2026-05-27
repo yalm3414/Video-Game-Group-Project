@@ -13,7 +13,7 @@ public class Goomba extends Sprite
 		super("g", x, y, 30, 30, 3, 0, pose);
 		gtop = new Rect(x, y+1, 40, 0);
 		this.physics = true;
-		moveDir = true;
+		moveDir = false;
 	//	When moveDir is false, goomba is moving left.  When true, it moves right
 		
 	}
