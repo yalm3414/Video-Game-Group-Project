@@ -124,6 +124,68 @@ public class Rect
 	}
 	
 	
+	//Collision handling for goombas, copied from mario collision, minus pushup and down
+	public void pushes(Goomba s)
+	{
+		if(pushed == false) {
+			pushUp(s);
+		}
+		if(pushed == false) {
+			pushDown(s);
+		}
+		if(pushed == false) {
+			pushRight(s);
+		}
+		if(pushed == false) {
+			pushLeft(s);
+		}
+		if(pushed == true) pushed = false;
+	}
+	public void pushLeft(Goomba s)
+	{
+		double penetration = s.x + s.w - x;
+		
+		if(penetration < s.w/2) {
+			s.x -= penetration + 2;
+	
+			s.vx = 0;
+		}
+	}
+	
+	public void pushRight(Goomba s)
+	{
+		double penetration = x + w - s.x;
+		
+		if(penetration < s.w/2) {
+
+			s.x += penetration + 2;
+			pushed = true;
+			s.vx = 0;
+		}
+	}
+	//commenting out for now
+/*	public void pushDown(Goomba s)
+	{
+		double penetration = y + h - s.y;
+		
+		if(penetration < s.h/2) {
+			
+			s.y += penetration + 1;
+			s.vy = 0;
+			pushed = true;
+		}
+	}
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//Replaced Rectangle collision handling with Sprite
 	public void pushes(Sprite r)
 	{
