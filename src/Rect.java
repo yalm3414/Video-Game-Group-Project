@@ -128,9 +128,6 @@ public class Rect
 	public void pushes(Goomba s)
 	{
 		if(pushed == false) {
-			pushDown(s);
-		}
-		if(pushed == false) {
 			pushRight(s);
 			s.moveDir = true;
 		}
@@ -150,8 +147,7 @@ public class Rect
 			s.vx = 0;
 			pushed = true;
 		}
-	}
-	
+	}	
 	public void pushRight(Goomba s)
 	{
 		double penetration = x + w - s.x;
@@ -164,19 +160,6 @@ public class Rect
 			pushed = true;
 		}
 	}
-	//commenting out for now
-/*	public void pushDown(Goomba s)
-	{
-		double penetration = y + h - s.y;
-		
-		if(penetration < s.h/2) {
-			
-			s.y += penetration + 1;
-			s.vy = 0;
-			pushed = true;
-		}
-	}
-	*/
 	
 	
 	//Replaced Rectangle collision handling with Sprite
