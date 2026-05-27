@@ -128,9 +128,6 @@ public class Rect
 	public void pushes(Goomba s)
 	{
 		if(pushed == false) {
-			pushUp(s);
-		}
-		if(pushed == false) {
 			pushDown(s);
 		}
 		if(pushed == false) {
@@ -149,6 +146,7 @@ public class Rect
 			s.x -= penetration + 2;
 	
 			s.vx = 0;
+			pushed = true;
 		}
 	}
 	
@@ -161,6 +159,7 @@ public class Rect
 			s.x += penetration + 2;
 			pushed = true;
 			s.vx = 0;
+			pushed = true;
 		}
 	}
 	//commenting out for now
@@ -176,14 +175,6 @@ public class Rect
 		}
 	}
 	*/
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	//Replaced Rectangle collision handling with Sprite

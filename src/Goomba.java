@@ -13,7 +13,7 @@ public class Goomba extends Sprite
 		super("g", x, y, 30, 30, 3, 0, pose);
 		gtop = new Rect(x, y+1, 40, 0);
 		this.physics = true;
-		moveDir = false;
+		moveDir = true;
 	//	When moveDir is false, goomba is moving left.  When true, it moves right
 		
 	}
@@ -30,12 +30,12 @@ public class Goomba extends Sprite
 	
 	
 	public static void update(Goomba g) {
-		if(g.moveDir == false)
+		if(g.pushed == false && g.moveDir == false)
 		{
 			g.x -=1;
 			g.gtop.x -= 1;
 		}
-		if(g.moveDir == true) {
+		if(g.pushed == false && g.moveDir == true) {
 			g.x += 1;
 			g.gtop.x += 1;
 		}
@@ -43,11 +43,13 @@ public class Goomba extends Sprite
 			g.x -=1;
 			g.gtop.x -= 1;
 			g.moveDir = true;
+			g.pushed = false;
 		}
 		if(g.pushed == true && g.moveDir == true) {
 			g.x +=1;
 			g.gtop.x += 1;
 			g.moveDir = false;
+			g.pushed = false;
 		}
 		
 		//the goomba death function; just yeets it downward offscreen

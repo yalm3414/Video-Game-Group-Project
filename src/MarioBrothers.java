@@ -27,6 +27,7 @@ public class MarioBrothers extends GameBase
 		
 		// Collision detection and handling for all tiles in tileMap for mario
 		map.collisionOn(mario);
+		map.collisionOn(goomba);
 	    
 		// Moves items and handles collision/consumptions of items with mario and tiles
 		for(int i = 0; i < TileMap.items.size(); i++)

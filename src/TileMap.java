@@ -299,6 +299,20 @@ public class TileMap
 	    
 	}
 	
+	// Collision handling for all goombas
+	public void collisionOn(Goomba g) {
+	    for(int i = 0; i < tiles.size(); i++)
+		{
+			if(g.overlaps(tiles.get(i)) && g.physics)
+			{
+				tiles.get(i).pushes(g);
+			
+			}
+		}
+			
+		
+	}
+	
 	
 	// Collision handling for rectangles with all tiles 
 		public void collisionOn(Sprite m)
