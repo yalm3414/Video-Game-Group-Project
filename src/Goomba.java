@@ -52,7 +52,7 @@ public class Goomba extends Sprite
 			g.pushed = false;
 		}
 		
-		//the goomba death function; just yeets it downward offscreen
+		//the goomba death function; just drops it downward offscreen fast enough to not risk also killing mario
 		if(MarioBrothers.mario.overlaps(g.gtop)){
 			g.alive = false;
 			g.physics = false;
