@@ -16,18 +16,33 @@ public class MarioBrothers extends GameBase
 	boolean size;
 	
 	
-	static Goomba goomba = new Goomba(700, 385);
+	static Goomba goomba1 = new Goomba(700, 385);
+	static Goomba goomba2 = new Goomba(1100, 385);
+	static Goomba goomba3 = new Goomba(1500, 385);
+	static Goomba goomba4 = new Goomba(1700, 385);
+	static Goomba goomba5 = new Goomba(2700, 385);
+	static Goomba goomba6 = new Goomba(3200, 385);
 	
 	public void inGameLoop()
 	{
 		mario.update(mario);
-		Goomba.update(goomba);
+		Goomba.update(goomba1);
+		Goomba.update(goomba2);
+		Goomba.update(goomba3);
+		Goomba.update(goomba4);
+		Goomba.update(goomba5);
+		Goomba.update(goomba6);
 
 		mario.grounded = false;
 		
 		// Collision detection and handling for all tiles in tileMap for mario
 		map.collisionOn(mario);
-		map.gcollisionOn(goomba);
+		map.gcollisionOn(goomba1);
+		map.gcollisionOn(goomba2);
+		map.gcollisionOn(goomba3);
+		map.gcollisionOn(goomba4);
+		map.gcollisionOn(goomba5);
+		map.gcollisionOn(goomba6);
 	    
 		// Moves items and handles collision/consumptions of items with mario and tiles
 		for(int i = 0; i < TileMap.items.size(); i++)
@@ -85,7 +100,12 @@ public class MarioBrothers extends GameBase
 		
 		map.draw(g);
 		mario.draw(g);
-		goomba.draw(g);
+		goomba1.draw(g);
+		goomba2.draw(g);
+		goomba3.draw(g);
+		goomba4.draw(g);
+		goomba5.draw(g);
+		goomba6.draw(g);
 		
 		// Draw all the itesm
 		for(int i = 0; i < TileMap.items.size(); i++)
