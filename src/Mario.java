@@ -91,15 +91,25 @@ public class Mario extends Sprite
 	
 	public void update(Mario s)
     {
-		
+		System.out.println(s.y);
 		 shoes.x = s.x;
 		 shoes.y = s.y+ h-10;
 		 
-		if(s.x > 6340) {
+		if(s.x >= 6310 && s.x <= 6335) {
+			x = 6348;
+			vx = 0;
+			vy = 0;
+			physics = false;
 			win(s);
 		}
+		if(win && s.y > 360) {
+			s.physics = true;
+		}
+		if(s.y == 353 && win) {
+			s.x += 17; walkOff = true;
+		}
 		if(win && grounded && walkOff) {
-		
+			physics = true;
 			if(s.x < 6525) {
 				s.goRT(3);
 			}

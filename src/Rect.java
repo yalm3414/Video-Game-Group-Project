@@ -81,7 +81,7 @@ public class Rect
 		
 		if(penetration < s.w/2) {
 			s.x -= penetration + 2;
-	
+			pushed = true;
 			s.vx = 0;
 		}
 	}

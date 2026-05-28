@@ -8,7 +8,7 @@ public class MarioBrothers extends GameBase
 	
 	TileMap map = new TileMap("world_1-1_OW.map", 32, 16);
 
-	static Mario smario = new Mario("sm", 50, 350, Mario.RT);
+	static Mario smario = new Mario("sm", 100, 350, Mario.RT);
 	static Mario bmario = new Mario("bm", 50, 350, Mario.RT);
 	
 	static Mario mario = smario;
@@ -25,6 +25,8 @@ public class MarioBrothers extends GameBase
 	
 	public void inGameLoop()
 	{
+
+		
 		mario.update(mario);
 		Goomba.update(goomba1);
 		Goomba.update(goomba2);

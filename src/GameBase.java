@@ -95,7 +95,7 @@ public abstract class GameBase extends Applet implements Runnable, KeyListener, 
 	public final void run()
 	{
 		
-//		musicPlayer.playMusic("../Music/Background_Theme.wav");
+		musicPlayer.playMusic("../Music/Background_Theme.wav");
 		while(true)
 		{
 			inGameLoop();
