@@ -161,8 +161,11 @@ public class Mario extends Sprite
 	        if(shrinking)
 	        {
 	        	growTimer++;
+	       
+	        	if(growTimer % 4 == 0) visible = false;
 	            if(growTimer >= growFrameDuration)
 	            {
+	            	visible = true;
 	                growTimer = 0;
 	                growFrame--;
 	                if((direction == LT && growFrame < 0) || (direction == RT && growFrame < 3))
