@@ -24,6 +24,10 @@ public class Mario extends Sprite
    
     
     // Variables to handle marios transformations
+    Rect shoes;
+    boolean hit = false;
+    
+    
     Image[] growFrames = new Image[6];
     boolean growing = false;
     boolean shrinking = false;
@@ -37,6 +41,7 @@ public class Mario extends Sprite
 	boolean win;
 	boolean walkOff;
 	boolean visible = true;
+	
 	
     Image winBMario = Toolkit.getDefaultToolkit().getImage("bm_flag_rt.png");
 	Image winSMario = Toolkit.getDefaultToolkit().getImage("sm_flag_rt.png");
@@ -55,11 +60,14 @@ public class Mario extends Sprite
             this.name = "bm";
             this.w = 25;
             this.h = 63;
+            shoes = new Rect( x, y+h, 25, 10);
         }
         else {
             this.name = "sm";
             this.w = 24;
             this.h = 30;
+            shoes = new Rect( x, y+h, 25, 10);
+            
         }
         createGrowFrames();
         
@@ -83,6 +91,10 @@ public class Mario extends Sprite
 	
 	public void update(Mario s)
     {
+		
+		 shoes.x = s.x;
+		 shoes.y = s.y+ h-10;
+		 
 		if(s.x > 6340) {
 			win(s);
 		}
@@ -157,7 +169,7 @@ public class Mario extends Sprite
 	                {
 		                  MarioBrothers.mario = switchMarios();
 		                  shrinking = false;
-		                  control = true;
+		                  hit = false;
 	                }
 	            }
 	        }
@@ -206,6 +218,16 @@ public class Mario extends Sprite
             moving = true;
         }
     }
+	public void forceJump()
+    {
+        
+            vy = -3;
+            jumping = true;
+            grounded = false;
+            moving = true;
+      
+    }
+
 
     public void duck() {
         if(grounded) ducking = true;
@@ -256,17 +278,16 @@ public class Mario extends Sprite
         growTimer = 0;
     }
     public void shrinks() {
-    	shrinking = true;
-    	control = false;
-    	vx = 0;
-    	vy = 0;
-    	if(MarioBrothers.mario.direction == LT) {
-   	     growFrame = 2;
-	   	}
-	   	else {
-	   		growFrame = 5;
-	   	}
-        growTimer = 0;
+    
+	    	shrinking = true;
+	    	if(MarioBrothers.mario.direction == LT) {
+	   	     growFrame = 2;
+		   	}
+		   	else {
+		   		growFrame = 5;
+		   	}
+	        growTimer = 0;
+    
     }
   
     public void gameOver() {
@@ -281,7 +302,7 @@ public class Mario extends Sprite
     
     public void draw(Graphics g)
     {
-    	
+    	g.drawRect((int)(shoes.x- Camera.x), (int)(shoes.y- Camera.y),shoes.w,shoes.h);
     	if(visible) {
 			if(win && !(walkOff)) {
 				g.drawImage(winMario, (int)(x-Camera.x), (int)(y-Camera.y), w, h, null);

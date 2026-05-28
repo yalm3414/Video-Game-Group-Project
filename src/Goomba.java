@@ -53,14 +53,23 @@ public class Goomba extends Sprite
 		}
 		
 		//the goomba death function; just drops it downward offscreen fast enough to not risk also killing mario
-		if(MarioBrothers.mario.overlaps(g.gtop)){
+		if(MarioBrothers.mario.shoes.overlaps(g.gtop) && g.alive == true){
+			MarioBrothers.mario.forceJump();
 			g.alive = false;
 			g.physics = false;
 			g.moveDN(5000);
+			
+			
 		}
 		
-		if(MarioBrothers.mario.overlaps(g) && g.alive && MarioBrothers.mario.overlaps(g.gtop)== false ) {
-			MarioBrothers.mario.isDead = true;
+		if(MarioBrothers.mario.shoes.overlaps(g) && g.alive && MarioBrothers.mario.shoes.overlaps(g.gtop) == false ) {
+			if(MarioBrothers.mario == MarioBrothers.bmario) {
+				MarioBrothers.mario.shrinks();
+				MarioBrothers.mario.hit = true;
+			}
+			else{
+				MarioBrothers.mario.isDead = true;
+			}
 		}
 		
 			
